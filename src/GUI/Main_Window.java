@@ -1,21 +1,35 @@
 package GUI;
 
+import IO.FileInput;
+
 import javax.swing.*;
 import javax.swing.border.Border;
+import javax.swing.border.EmptyBorder;
 import java.awt.*;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 
 
 public class Main_Window {
-
-    JFrame frame; //JFrame object to represent the graphical window that will hold the program's graphical content.
-    JRadioButton[] radioButtons = new JRadioButton[5];
-    JPanel[] radioPanels = new JPanel[5];
-    JPanel radioPanel;
-    JPanel labelPanel;
-    JLabel aiLabel = new JLabel("Ask Me Anything");
+    private final JRadioButton[] radioButtons = new JRadioButton[3];
+    private final JPanel[] radioPanels = new JPanel[3];
+    public JPanel radioPanel;
+    private final JPanel labelPanel = new JPanel(new GridLayout(1,1, 0, 0));
+    public JLabel aiLabel = new JLabel("Ask Me Anything.");
+    public final JTextArea area = new JTextArea();
+    private final JPanel areaPanel = new JPanel(new GridLayout(1, 1, 0, 0));
+    private final JButton submitButton = new JButton();
+    private final KeyAdapter adapter = new KeyAdapter() {
+        @Override
+        public void keyPressed(KeyEvent e) {
+            if(e.getKeyCode() == KeyEvent.VK_ENTER) {
+                new FileInput().run();
+            }
+        }
+    };
 
     public void startGUI(int columns) {
-        frame = new JFrame("AI Window");
+        final JFrame frame = new JFrame("AI Window");
         frame.setSize(1000, 1000);
         frame.setLayout(null);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -40,8 +54,6 @@ public class Main_Window {
             radioPanel.add(radioPanels[i]);
 
         }
-
-        labelPanel = new JPanel(new GridLayout(1,1, 0, 0));
         labelPanel.setBounds(500, 12, 600, 140);
         labelPanel.setBackground(Color.DARK_GRAY);
         labelPanel.setBorder(new CurvedBorder(30, 30, Color.GRAY, 4));
@@ -51,10 +63,22 @@ public class Main_Window {
         labelPanel.add(aiLabel);
         frame.add(labelPanel);
 
+        areaPanel.setBounds(500, 200, 600, 570);
+        area.setFont(new Font("-ui-sans-serif", Font.PLAIN, 15));
+        areaPanel.setBackground(Color.DARK_GRAY);
+        area.setOpaque(false);
+        area.setBorder(new EmptyBorder(20, 20, 20, 20));
+        area.setLineWrap(true);
+        area.setWrapStyleWord(true);
+        area.addKeyListener(adapter);
+        areaPanel.setBorder(new CurvedBorder(30, 30, Color.GRAY, 5));
+        areaPanel.add(area);
+        frame.add(areaPanel);
+
         frame.setVisible(true); //Sets the visibility of the JFrame, so that the window opens for the user ot see when this method is run.
     }
     public static void main(String[] args) {
-    new Main_Window().startGUI(5);
+    new Main_Window().startGUI(3);
     }
 }
 
@@ -88,3 +112,4 @@ class CurvedBorder implements Border {
         return false;
     }
 }
+

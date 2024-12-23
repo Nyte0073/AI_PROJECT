@@ -1,2 +1,4 @@
-package IO;public class Main {
+package IO;
+
+public class Main {
 }

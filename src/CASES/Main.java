@@ -1,2 +1,4 @@
-package CASES;public class main {
+package CASES;
+
+public class Main {
 }

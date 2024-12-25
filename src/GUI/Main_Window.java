@@ -1,6 +1,7 @@
 package GUI;
 
 import IO.FileInput;
+import org.jetbrains.annotations.NotNull;
 
 import javax.swing.*;
 import javax.swing.border.Border;
@@ -18,10 +19,9 @@ public class Main_Window {
     public JLabel aiLabel = new JLabel("Ask Me Anything.");
     public final JTextArea area = new JTextArea();
     private final JPanel areaPanel = new JPanel(new GridLayout(1, 1, 0, 0));
-    private final JButton submitButton = new JButton();
     private final KeyAdapter adapter = new KeyAdapter() {
         @Override
-        public void keyPressed(KeyEvent e) {
+        public void keyPressed(@NotNull KeyEvent e) {
             if(e.getKeyCode() == KeyEvent.VK_ENTER) {
                 new FileInput().run();
             }
@@ -99,7 +99,7 @@ class CurvedBorder implements Border {
         Graphics2D g2d = (Graphics2D) g;
         g2d.setColor(color);
         g2d.setStroke(new BasicStroke(thickness));
-        g2d.fillRoundRect(x + thickness/2, y + thickness/2, width - thickness, height - thickness, arcWidth, arcHeight);
+        g2d.fillRoundRect(x , y, width, height, arcWidth, arcHeight);
     }
 
     @Override
